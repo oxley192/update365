@@ -283,6 +283,8 @@ static const uint8_t sysstate_ret_patch[] = {0x13, 0x22, 0xc8, 0xf2, 0x01, 0x02}
 static const char ur0_path[] = "vs0:";
 #define SYSSTATE_SD0_PSP2CONFIG_STRING (0x2396)
 static const char ur0_psp2config_path[] = "vs0:tai/boot_config.txt";
+static const char ux0_path[] = "ux0:";
+static const char ux0_psp2config_path[] = "ux0:tai/boot_config.txt";
 #define SYSSTATE_FINAL_CALL (0x130)
 #define SYSSTATE_FINAL (0x18C9)
 
