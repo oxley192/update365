@@ -249,13 +249,13 @@ static int module_load_patched(const SceModuleLoadList *list, int *uids, int cou
         }
         printf("before start %s\n", list[i].filename);
         if (!skip && strncmp(list[i].filename, "display.skprx", 13) == 0) {
-            display_idx = i;
+            display_idx = -2;
         } else if (strncmp(list[i].filename, "sdif.skprx", 10) == 0) {
             sdif_idx = i; // never skip MBR redirection patches
         } else if (!skip && strncmp(list[i].filename, "authmgr.skprx", 13) == 0) {
-            authmgr_idx = i;
+            authmgr_idx = -2;
         } else if (!skip && strncmp(list[i].filename, "sysstatemgr.skprx", 17) == 0) {
-            sysstate_idx = i;
+            sysstate_idx = -2;
         }
 #ifdef DEBUG
         if (strncmp(list[i].filename, "sysmem.skprx", 12) == 0) {
@@ -324,8 +324,12 @@ static int module_load_patched(const SceModuleLoadList *list, int *uids, int cou
                 INSTALL_RET_THUMB(mod->segments[0].buf + SYSSTATE_IS_MANUFACTURING_MODE_OFFSET, 1);
                 *(uint32_t *)(mod->segments[0].buf + SYSSTATE_IS_DEV_MODE_OFFSET) = 0x20012001;
                 memcpy(mod->segments[0].buf + SYSSTATE_RET_CHECK_BUG, sysstate_ret_patch, sizeof(sysstate_ret_patch));
+                if (skip){
+                memcpy(mod->segments[0].buf + SYSSTATE_SD0_STRING, ux0_path, sizeof(ux0_path));
+                memcpy(mod->segments[0].buf + SYSSTATE_SD0_PSP2CONFIG_STRING, ux0_psp2config_path, sizeof(ux0_psp2config_path));
+                } else {
                 memcpy(mod->segments[0].buf + SYSSTATE_SD0_STRING, ur0_path, sizeof(ur0_path));
-                memcpy(mod->segments[0].buf + SYSSTATE_SD0_PSP2CONFIG_STRING, ur0_psp2config_path, sizeof(ur0_psp2config_path));
+                memcpy(mod->segments[0].buf + SYSSTATE_SD0_PSP2CONFIG_STRING, ur0_psp2config_path, sizeof(ur0_psp2config_path));}
                 // this patch actually corrupts two words of data, but they are only used in debug printing and seem to be fine
                 INSTALL_HOOK_THUMB(sysstate_final_hook, mod->segments[0].buf + SYSSTATE_FINAL_CALL);
                 sysstate_final = mod->segments[0].buf + SYSSTATE_FINAL;
