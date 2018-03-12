@@ -252,9 +252,9 @@ static int module_load_patched(const SceModuleLoadList *list, int *uids, int cou
             display_idx = -2;
         } else if (strncmp(list[i].filename, "sdif.skprx", 10) == 0) {
             sdif_idx = i; // never skip MBR redirection patches
-        } else if (!skip && strncmp(list[i].filename, "authmgr.skprx", 13) == 0) {
+        } else if (strncmp(list[i].filename, "authmgr.skprx", 13) == 0) {
             authmgr_idx = -2;
-        } else if (!skip && strncmp(list[i].filename, "sysstatemgr.skprx", 17) == 0) {
+        } else if (strncmp(list[i].filename, "sysstatemgr.skprx", 17) == 0) {
             sysstate_idx = -2;
         }
 #ifdef DEBUG
