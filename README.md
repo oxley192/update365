@@ -1,6 +1,6 @@
 Mod of https://github.com/TheOfficialFloW/update365 (copied from henkaku/enso mod)
 Changes made to source: 
-- Added possibility to load config from ux0 if in safemode/updatemode (if it doesnt exist it just skips to real MBR so its fully safe and you can recover from full vs0 delete).
+- Added possibility to load config from ux0 if in safemode/updatemode (if it doesnt exist it just skips to real psp2config so its fully safe and you can recover from full vs0 delete).
 - Removed enso logo hook
 - Added ineedsettings to henkaku ( https://github.com/SKGleba/ineedsettings )
 - Added DEX/TEST spoof to enso payload (since Project DeepLoad wasnt released yet its only in #releases, not open src).
